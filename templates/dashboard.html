@@ -1,0 +1,5 @@
+{% extends "layout.html"%}
+{%block content%}
+    <p>You are logged in {{current_user.username}}</p>
+    <a href="{{url_for('logout')}}">Logout</a>
+{%endblock%}

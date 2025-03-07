@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block content %}
+    <style>
+        .post-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+            transition: box-shadow 0.3s;
+        }
+        .post-card:hover {
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+        }
+        .post-title {
+            font-size: 28px;
+            color: #333;
+            margin: 0;
+        }
+        .post-meta {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .post-content {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.6;
+        }
+        .action-links {
+            margin-top: 15px;
+        }
+        .action-links a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        .action-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    {% for p in posts %}
+        <div class="post-card">
+            <h1 class="post-title">{{ p.title }}</h1>
+            
+            <p class="post-content">{{ p.content }}</p>
+            <p class="post-meta">By {{ p.author.username }} on {{ p.date_posted.strftime('%B %d, %Y') }}</p>
+            {% if p.author == current_user %}
+                <div class="action-links">
+                    <a href="">Update</a>
+                    <a href="" >Delete</a>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}
