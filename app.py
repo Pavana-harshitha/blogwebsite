@@ -7,6 +7,20 @@ from flask_wtf import FlaskForm
 from wtforms import PasswordField,StringField,SubmitField,TextAreaField
 from wtforms.validators import ValidationError,Length,InputRequired,DataRequired
 from datetime import datetime
+from flask_mail import Mail,Message
+from random import randint
+
+app=Flask(__name__)
+mail=Mail(app)
+
+app.config["MAIL_SERVER"]='smtp.gmail.com'
+app.config["MAIL_PORT"]=465
+app.config["MAIL_USERNAME"]='studentmart32@gmail.com'
+app.config['MAIL_PASSWORD']='zdze nziw jeex jlvf'                   
+app.config['MAIL_USE_TLS']=False
+app.config['MAIL_USE_SSL']=True
+mail=Mail(app)
+otp=randint(000000,999999)
 
 
 app=Flask(__name__)
@@ -43,8 +57,8 @@ class Post(db.Model):
 class RegistrationForm(FlaskForm):
     username=StringField(validators=[InputRequired()],render_kw={"placeholder":"Username"})
     email=StringField(validators=[InputRequired()],render_kw={"placeholder":"EmailID"})
-    password=PasswordField(validators=[InputRequired()],render_kw={"placeholder":"Password"})
-    submit=SubmitField('Register')
+    
+    submit=SubmitField('Send OTP')
 
     def validate_username(self, username):
         existing_user_username = User.query.filter_by(
@@ -144,4 +158,4 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__=='__main__':
-    app.run(debug=True)
+    app.run(debug=True,port=5006)
